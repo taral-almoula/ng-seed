@@ -35,4 +35,9 @@ bower install
 * `gulp serve:dist` to launch a server on your optimized application
 * `gulp test` to launch your unit tests with Karma
 
-
+## Features:
+1. Uses configurable and modular `gulp` build system.
+2. Uses `Font-Awesome` and `bootstrap glyphicons`.
+3. Contains `.htaccess` file for `Apache` for `html5mode`.
+4. Configurable `API_END_POINT` that can be switched among `local`, `test`, and `prod` environments.
+5. 

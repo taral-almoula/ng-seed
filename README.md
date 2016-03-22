@@ -1,4 +1,4 @@
-# ui-seed
+# ng-seed
 egen.io
 
 ## Table of Contents
@@ -37,6 +37,4 @@ npm install
 ## Features:
 1. Uses configurable and modular `gulp` build system.
 2. Uses `Font-Awesome` and `bootstrap glyphicons`.
-3. Contains `.htaccess` file for `Apache` for `html5mode`.
-4. Configurable `API_END_POINT` that can be switched among `local`, `test`, and `prod` environments.
-5. 
+3. Configurable `API_END_POINT` that can be switched among `local`, `test`, and `prod` environments.

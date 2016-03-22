@@ -9,6 +9,12 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var _ = require('lodash');
 
+var browserSync = require('browser-sync');
+
+gulp.task('inject-reload', ['inject'], function() {
+  browserSync.reload();
+});
+
 function injectTask () {
   var injectStyles = gulp.src([
     path.join(conf.paths.tmp, '/serve/app/**/*.css'),
@@ -26,13 +32,13 @@ function injectTask () {
   };
 
   var injectScripts = gulp.src([
-    path.join(conf.paths.src, '/**/*.module.js'),
-    path.join(conf.paths.src, '/**/*.js'),
-    path.join(conf.paths.tmp, '/serve/generated/*.js'),
-    path.join('!' + conf.paths.src, '/**/*.spec.js'),
-    path.join('!' + conf.paths.src, '/**/*.mock.js'),
-    path.join('!' + conf.paths.src, '/_assets/plugins/**/*.js')
-  ])
+      path.join(conf.paths.src, '/**/*.module.js'),
+      path.join(conf.paths.src, '/**/*.js'),
+      path.join(conf.paths.tmp, '/serve/generated/*.js'),
+      path.join('!' + conf.paths.src, '/**/*.spec.js'),
+      path.join('!' + conf.paths.src, '/**/*.mock.js'),
+      path.join('!' + conf.paths.src, '/_assets/plugins/**/*.js')
+    ])
     .pipe($.angularFilesort()).on('error', conf.errorHandler('AngularFilesort'));
 
   var injectOptions = {

@@ -16,7 +16,6 @@ exports.paths = {
   dist: '.dist',
   tmp: '.tmp',
   generated: 'generated',
-  serverConfig: 'server-configs',
   favicons: 'favicons'
 };
 
@@ -26,7 +25,7 @@ exports.paths = {
  *  to inject css preprocessor deps and js files in karma
  */
 exports.wiredep = {
-  exclude: [/bootstrap.js$/, /bootstrap-sass-official\/.*\.js/, /bootstrap\.css/],
+  exclude: [/\/bootstrap\.js$/, /\/bootstrap-sass\/.*\.js/, /\/bootstrap\.css/],
   directory: 'bower_components'
 };
 

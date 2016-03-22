@@ -22,8 +22,7 @@ npm install -g bower gulp
 Run following commands in a terminal, install all the latest packages if asked for different versions.
 
 ```bash
-npm install   
-bower install
+npm install
 ```
 
 ## Run

@@ -10,10 +10,10 @@ var $ = require('gulp-load-plugins')({
 
 gulp.task('partials', function () {
   return gulp.src([
-    path.join(conf.paths.src, '/**/*.html'),
-    path.join('!' + conf.paths.src, '/index.html'),
-    path.join(conf.paths.tmp, '/serve/app/**/*.html')
-  ])
+      path.join(conf.paths.src, '/**/*.html'),
+      path.join('!' + conf.paths.src, '/index.html'),
+      path.join(conf.paths.tmp, '/serve/app/**/*.html')
+    ])
     .pipe($.minifyHtml({
       empty: true,
       spare: true,
@@ -34,9 +34,9 @@ function htmlTask() {
     addRootSlash: false
   };
 
-  var htmlFilter = $.filter('*.html', {restore: true});
-  var jsFilter = $.filter('**/*.js', {restore: true});
-  var cssFilter = $.filter('**/*.css', {restore: true});
+  var htmlFilter = $.filter('*.html', { restore: true });
+  var jsFilter = $.filter('**/*.js', { restore: true });
+  var cssFilter = $.filter('**/*.css', { restore: true });
   var assets;
 
   return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
@@ -44,13 +44,17 @@ function htmlTask() {
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
+    .pipe($.sourcemaps.init())
     .pipe($.ngAnnotate())
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
+    .pipe($.sourcemaps.write('maps'))
     .pipe(jsFilter.restore)
     .pipe(cssFilter)
+    .pipe($.sourcemaps.init())
     .pipe($.replace('../../../bower_components/bootstrap-sass/assets/fonts/bootstrap', '/fonts'))
     .pipe($.replace('../../../bower_components/font-awesome/fonts', '/fonts'))
-    .pipe($.csso())
+    .pipe($.minifyCss({ processImport: false }))
+    .pipe($.sourcemaps.write('maps'))
     .pipe(cssFilter.restore)
     .pipe(assets.restore())
     .pipe($.useref())
@@ -82,17 +86,16 @@ gulp.task('other', function () {
   });
 
   return gulp.src([
-    path.join(conf.paths.favicons, '/**/*'),
-    path.join(conf.paths.serverConfig, '/**/.*'),
-    path.join(conf.paths.src, '/**/*'),
-    path.join('!' + conf.paths.src, '/**/*.{html,css,js,scss}')
-  ])
+      path.join(conf.paths.favicons, '/**/*'),
+      path.join(conf.paths.src, '/**/*'),
+      path.join('!' + conf.paths.src, '/**/*.{html,css,js,scss}')
+    ])
     .pipe(fileFilter)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
 });
 
-gulp.task('clean', function (done) {
-  $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], done);
+gulp.task('clean', function () {
+  return $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')]);
 });
 
 gulp.task('html', ['inject', 'partials'], htmlTask);

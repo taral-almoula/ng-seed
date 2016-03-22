@@ -3,7 +3,6 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-var debug = require('gulp-debug');
 
 var browserSync = require('browser-sync');
 
@@ -12,9 +11,18 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var _ = require('lodash');
 
-gulp.task('styles', function () {
+gulp.task('styles-reload', ['styles'], function() {
+  return buildStyles()
+    .pipe(browserSync.stream());
+});
+
+gulp.task('styles', function() {
+  return buildStyles();
+});
+
+var buildStyles = function() {
   var sassOptions = {
-    outputStyle: 'compressed'
+    style: 'compressed'
   };
 
   var injectFiles = gulp.src([
@@ -36,19 +44,15 @@ gulp.task('styles', function () {
     addRootSlash: false
   };
 
-  var cssFilter = $.filter('**/*.css', {restore: true});
 
   return gulp.src([
-    path.join(conf.paths.src, '/_assets/stylesheets/index.scss')
-  ])
+      path.join(conf.paths.src, '/_assets/stylesheets/index.scss')
+    ])
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
+    .pipe($.sourcemaps.init())
     .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
-    .pipe(cssFilter)
-    .pipe($.sourcemaps.init({ loadMaps: true }))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
-    .pipe(cssFilter.restore)
-    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
-    .pipe(browserSync.reload({ stream: true }));
-});
+    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')));
+};

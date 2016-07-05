@@ -12,7 +12,10 @@
     <base href="/">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <title> MovieFlix </title>
 
+    <link rel="stylesheet" type="text/css" href="\ng-seed\src\_assets\stylesheets\movieflix.css">
+    <link rel="stylesheet" type="text/css" href="\ng-seed\src\app\features\Sign In\Sign In.css">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
@@ -27,8 +30,20 @@
     <!-- endinject -->
     <!-- endbuild -->
   </head>
-  <body>
+  <body background="\ng-seed\src\_assets\images\PosterCollage.jpg">
     <div ui-view></div>
+    <div class="box">
+      <h4 class="welcome"> Welcome to </h4>
+      <img src="\ng-seed\src\_assets\images\LogoMakr2.png" alt="MyCompany Logo" class="logo2" align="center" />
+      <br><br>
+      <form action="\ng-seed\src\app\features\Sign In\Sign in.html">
+        <button class="s1">Sign In</button>
+      </form>
+      <br>
+      <form action="\ng-seed\src\app\features\Sign Up\Sign Up.html">
+        <button class="s2">Sign Up</button>
+      </form>
+    </div>
 
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->
@@ -51,3 +66,8 @@
 
   </body>
 </html>
+
+
+
+
+

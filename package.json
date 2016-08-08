@@ -24,10 +24,14 @@
   "license": "private",
   "homepage": "https://egen.io",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "angular": "^1.5.8",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1"
+  },
   "scripts": {
     "test": "gulp test",
-    "postinstall" : "bower install"
+    "postinstall": "bower install"
   },
   "devDependencies": {
     "browser-sync": "~2.11.1",

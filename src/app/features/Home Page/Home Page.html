@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="mainApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="\ng-seed\src\app\features\Sign In\Sign In.css">
+    <link rel="stylesheet" type="text/css" href="\ng-seed\public\css\Sign In.css">
     <link rel="stylesheet" type="text/css" href="\ng-seed\src\app\features\Home Page\Home Page.css">
     <title>Home Page</title>
+    <script src="controller.js"></script>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.9/angular.js" data-semver="1.4.9"></script>
 </head>
 <header>
   <img src="\ng-seed\src\_assets\images\LogoMakr2.png" alt="MyCompany Logo" class="logo3">
@@ -45,10 +48,31 @@
   </div>
 
   <i class="material-icons" >notifications</i>
-  <input type="text" name="search" placeholder="Search" class="Search">
+  <div ng-controller="MainCtrl">
+  <input type="text" name="search" placeholder="Search" class="Search" ng-model="searchText">
+  <table id="searchTextResults">
+
+    <tr ng-repeat="x in mov | filter:searchText">
+      <td>{{x.Title}}</td>
+    </tr>
+  </table>
+    </div>
 </header>
-<body>
+<body >
+
+
   <br><br><br>
+  <div ng-controller="MovieCtrl">
+    <ul class="ul-food">
+      <li class="node{{ x.Nid }}" ng-repeat="x in titles | filter:isMovie">
+        <a href="" ng-click="select(x)"> {{ x.title }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="body">
+    <h2>{{selectedItem.title}}</h2>
+    <p>{{selectedItem.Body}}</p>
+  </div>
   <p class="titles">Originals</p>
   <br><br>
   <section class="originals">
@@ -93,5 +117,9 @@
     </div>
   </div>
   </section>
+  <!--<script src="bower_components/angular/angular.min.js"></script> -->
+
+
+
 </body>
 </html>
